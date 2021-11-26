@@ -17,4 +17,12 @@ public class SampleAdder {
     public  String getPassenger() {
         return "Love you";
     }
+
+    @Log
+    public String logMe(int id) {
+        if(id < 1) {
+           // throw new RuntimeException("id should not be less than 1");
+        }
+        return "Loggin me";
+    }
 }

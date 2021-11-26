@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
+import static java.lang.String.format;
+
 @Aspect
 @Component
 public class LoggingAspect {
@@ -33,6 +35,16 @@ public class LoggingAspect {
         Object proceed = proceedingJoinPoint.proceed();
 
         logger.info("The result is " + proceed);
+    }
 
+    @Around("@annotation(com.master.masterspringboot.aop.Log)")
+    public Object logging(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
+        String methodName = proceedingJoinPoint.getSignature().getName();
+
+        logger.info(format("The calling method %s", methodName));
+        Object result = proceedingJoinPoint.proceed();
+
+        logger.info(format("The calling method %s return value %s", methodName, result));
+        return result;
     }
 }
